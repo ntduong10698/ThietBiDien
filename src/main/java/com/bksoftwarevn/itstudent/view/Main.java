@@ -1,5 +1,7 @@
 package com.bksoftwarevn.itstudent.view;
 
+import com.bksoftwarevn.itstudent.dao.CategoryDao;
+import com.bksoftwarevn.itstudent.dao_impl.CategoryDaoImpl;
 import com.bksoftwarevn.itstudent.model.MyConnection;
 
 import java.sql.Connection;
@@ -10,16 +12,11 @@ public class Main {
 
     public static void main(String[] args) {
         MyConnection myConnection = new MyConnection();
+        CategoryDao categoryDao = new CategoryDaoImpl();
         try {
             Connection myConnect = myConnection.connectDB();
-            String sql = "insert into product (name, price, create_date, deleted) value (?, ?, ?, ?)";
-            PreparedStatement preparedStatement = myConnect.prepareStatement(sql);
-            preparedStatement.setString(1, "Iphone 11");
-            preparedStatement.setDouble(2, 20000);
-            preparedStatement.setDate(3, new Date(new java.util.Date().getTime()));
-            preparedStatement.setBoolean(4, false);
-            int rs = preparedStatement.executeUpdate();
-            if(rs > 0) System.out.println("Insert successfully");
+            System.out.println(categoryDao.findAll());
+            System.out.println(categoryDao.findById(10));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
