@@ -42,7 +42,7 @@ public class MyConnection {
     public PreparedStatement prepar(String sql) {
         try {
             System.out.println(">> "+sql);
-            //connectio.prepareStatment trả về đối tượng PrepareStatment dùng để thực hiện query String sql
+            //connection.prepareStatment trả về đối tượng PrepareStatment dùng để thực hiện query String sql
             return connection.prepareStatement(sql,
                     ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             //ResultSet.TYPE_SCROLL_SENSITIVE: cho phép con trỏ resultSet chạy từ bản ghi đầu đến cuối.
@@ -53,6 +53,7 @@ public class MyConnection {
         }
     }
 
+    //dùng để lấy ra prepare cho các thao tác thêm sửa xóa query Update
     public PreparedStatement preparUpdate(String sql) {
         try {
             System.out.println(">> "+sql);

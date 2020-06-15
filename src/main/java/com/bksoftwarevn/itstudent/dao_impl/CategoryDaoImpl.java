@@ -40,7 +40,7 @@ public class CategoryDaoImpl implements CategoryDao {
                 Category category = getObject(resultSet);
                 if(category != null) categoryList.add(category);
             } while (resultSet.next()); //.next() đưa con trỏ resultSet đến dòng kết tiếu nếu tồn tại trả về true, còn không thì false
-        } // dua con tro ve ban ghi dau tien
+        }
         return categoryList;
     }
 
@@ -49,7 +49,7 @@ public class CategoryDaoImpl implements CategoryDao {
         Category category = null;
         String sql = "select * from category where deleted = false and id = ?";
         PreparedStatement preparedStatement = myConnection.prepar(sql);
-        preparedStatement.setInt(1, id);
+        preparedStatement.setInt(1, id); // dùng để set giá trị vào index chấm hỏi tương ứng từ 1
         ResultSet resultSet = preparedStatement.executeQuery();
         if(resultSet.first()) {
             category = getObject(resultSet);
