@@ -1,7 +1,9 @@
 package com.bksoftwarevn.itstudent.view;
 
+import com.bksoftwarevn.itstudent.controller.CategoryController;
 import com.bksoftwarevn.itstudent.dao.CategoryDao;
 import com.bksoftwarevn.itstudent.dao_impl.CategoryDaoImpl;
+import com.bksoftwarevn.itstudent.model.Category;
 import com.bksoftwarevn.itstudent.model.MyConnection;
 
 import java.sql.Connection;
@@ -12,11 +14,10 @@ public class Main {
 
     public static void main(String[] args) {
         MyConnection myConnection = new MyConnection();
-        CategoryDao categoryDao = new CategoryDaoImpl();
+        CategoryController categoryController = new CategoryController();
         try {
             Connection myConnect = myConnection.connectDB();
-            System.out.println(categoryDao.findAll());
-            System.out.println(categoryDao.findById(10));
+            System.out.println(categoryController.findAll());
         } catch (Exception ex) {
             ex.printStackTrace();
         }

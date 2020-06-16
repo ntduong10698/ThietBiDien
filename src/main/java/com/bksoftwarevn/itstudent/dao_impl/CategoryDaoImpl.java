@@ -59,16 +59,42 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public Category insert(Category category) throws SQLException {
-        return null;
+        Category newCategory = null;
+        String sql = "insert into category (name, deleted) values(?,?)";
+        PreparedStatement preparedStatement = myConnection.preparUpdate(sql);
+        preparedStatement.setString(1, category.getName());
+        preparedStatement.setBoolean(2, category.isDeleted());
+        int rs = preparedStatement.executeUpdate();
+        if(rs > 0) {
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            if(resultSet.first()) {
+                newCategory = findById((int) resultSet.getLong(1));
+            }
+        }
+        return newCategory;
     }
 
     @Override
     public boolean update(Category category) throws SQLException {
-        return false;
+        boolean rs = false;
+        String sql = "update category set name = ? where id = ?";
+        PreparedStatement preparedStatement = myConnection.preparUpdate(sql);
+        preparedStatement.setString(1, category.getName());
+        preparedStatement.setInt(2, category.getId());
+        int result = preparedStatement.executeUpdate();
+        if(result > 0) rs = true;
+        return rs;
     }
 
+    // thay đổi trường deleted ở db
     @Override
     public boolean delete(int id) throws SQLException {
-        return false;
+        boolean rs = false;
+        String sql = "update category set deleted = true where id = ?";
+        PreparedStatement preparedStatement = myConnection.preparUpdate(sql);
+        preparedStatement.setInt(1, id);
+        int result = preparedStatement.executeUpdate();
+        if(result > 0) rs = true;
+        return rs;
     }
 }
